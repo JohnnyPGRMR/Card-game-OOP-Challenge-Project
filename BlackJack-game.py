@@ -26,18 +26,33 @@ class Deck:
                 created_card = Card(suit,rank)
 
                 self.all_cards.append(created_card)
+    
+    def shuffle(self):
+        import random
+        random.shuffle(self.all_cards)
 
-new_deck = Deck()
-
-first_card = new_deck.all_cards[0]
-print(first_card.rank)
+    def deal_one(self):
+        return self.all_cards.pop()
 
 
+class Player:
+    
+    def __init__(self,name):
+
+        self.name = name
+        self.all_cards = []
+
+    def remove_one(self):
+        return self.all_cards.pop(0)
+
+    def add_cards(self,new_cards):
+        if type(new_cards) == type([]):
+            # List of multiple Card objects.
+            self.all_cards.extend(new_cards)
+        else:
+            # For a single Card object.
+            self.all_cards.append(new_cards)    
 
 
-# two_hearts = Card("Hearts","Two")
-# print(two_hearts)
-# three_of_clubs = Card('Clubs','Three')
-# print(three_of_clubs.suit)
-
-# print(two_hearts.value < three_of_clubs.value)
+    def __str__(self):
+        return f'Player {self.name} has {len(self.all_cards)} cards.'
